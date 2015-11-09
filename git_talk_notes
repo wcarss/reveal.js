@@ -1,0 +1,84 @@
+1 basic survival
+
+    this section is about going once through the loop. We're not going to take any short cuts, and
+    we're going to discuss the concepts as they come up. The overview of the command lifecycle we're
+    going to follow is:
+    
+        clone, status, diff, add, diff --cached, branch, checkout, commit, log, push, make PR, merge PR, pull
+
+    the concepts we're going to have covered are:
+
+        repositories, the index and what it means to stage a file, commits, branches, remotes, the log, pull requests
+
+    not touching yet:
+
+        short-cuts, editing history, undoing things, fixing problems, deep concepts like blobs
+
+    I'm happy to take questions at _any_ time throughout, but I'll also stop at the end. This section is the meat of today's    presentation, and then we'll cover some short-cuts and troubleshooting stuff.
+
+    clone
+        discuss repositories
+    status
+        make changes, show impact on status
+    diff
+        show changes made
+    add
+        discuss lifecycle: make changes, stage changes, commit a subset of staged changes
+    diff --cached or --staged
+        show changes staged
+    branch
+        show branch list, discuss branches
+    checkout
+        change branches
+    commit
+        quickly review diffs, discuss and show good commit messages
+    log
+        show commit
+    push
+        push <remote> <branch-name>; discuss remote versus local
+    make and merge a PR
+        mention our "no explicit rule" rule re: comments, mention author vs. maintainer merge
+    pull
+        checkout master, check things are clean (with status) git pull
+
+    stop for questions
+
+2 troubleshooting and short-cuts
+
+    short-cuts and streamlining your work:
+
+        config
+            --global, name, email, colours, alias.st, alias.ci, alias.co
+        add
+            *, ., -u,
+        checkout
+            -b
+        stash
+            apply, pop, list
+        bash aliases
+            s, c, d, u, ff
+
+    troubleshooting & fixing simple problems:
+
+        remote
+            -v, add, delete, set-url -- if you're having trouble pushing or pulling, this is step #1
+        git fetch
+            <remote> -- brings you new changes
+        git reset
+            --hard, --soft, --mixed
+        git checkout
+            <file>
+
+3 workflows & concepts
+
+    updating your repository
+    committing strategies
+    undoing work
+    tagging and cutting releases
+    
+
+4 deeper tools and concepts
+
+    
+
+5 other reading

@@ -1,411 +1,610 @@
 <!doctype html>
 <html lang="en">
+    <head>
+	<meta charset="utf-8">
+        <title>Git: 0 to 1</title>
 
-	<head>
-		<meta charset="utf-8">
+        <meta name="description" content="Bringing users from no knowledge to working knowledge of git.">
+        <meta name="author" content="Wyatt Carss">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 
-		<title>reveal.js – The HTML Presentation Framework</title>
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/black.css" id="theme">
 
-		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
-		<meta name="author" content="Hakim El Hattab">
+        <!-- Code syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
 
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <!-- Printing and PDF exports -->
+        <script>
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <h1>Git: Zero to One</h1>
+                    <h3>aka: basic git</h3>
+                    <p>
+                        <small>Created by <a href="http://wcarss.ca">Wyatt Carss</a> / <a href="http://twitter.com/wcarss">@wcarss</a></small>
+                    </p>
+                </section>
+                <section>
+                    <h1>Section 1: Preamble</h1>
+                </section>
+                <section>
+                    <h2>Who this talk is intended for</h2>
+                    <p>
+                        <ul>
+                            <li>POs</li>
+                            <li>QAs</li>
+                            <li>Designers</li>
+                            <li>Scrum Masters</li>
+                            <li>whoever isn't <em>comfortable</em> with git, but wants to be</li>
+                        <ul>
+                    </p>
+                </section>
+                <section>
+                    <h2>What this talk contains</h2>
+                    <p>
+                        <ol>
+                            <li>The Problems Git Solves</li>
+                            <li>A Note on Other Systems</li>
+                            <li>The Basic Workflow</li>
+                        </ol>
+                    </p>
+                </section>
+                <section>
+                    <h2>What this talk does not contain</h2>
+                    <p>
+                        <ul>
+                            <li>Anything else!</li>
+                        </ul>
+                    </p>
+                </section>
+                <section>
+                    <h2>more seriously, there won't be:</h2>
+                    <p>
+                        <ul>
+                            <li>rewriting history</li>
+                            <li>alternative workflows</li>
+                            <li>discussion of refs, blobs, trees, etc.</li>
+                            <li>jokes about kevan or chris troup</li>
+                        </ul>
+                    </p>
+                </section>
+                <section>
+                    <h1>With that said:</h1>
+                    <h2>leave now if you would like to</h2>
+                </section>
+                <section>
+                    <h2>Section 2: Actual talk content</h2>
+                </section>
+                <section>
+                    <h2>The Problems Git Solves</h2>
+                    <ul>
+                        <li>git helps you save your work</li>
+                        <li>git frees you to try wild experiments</li>
+                        <li>git lets you work on two (or more) things at once</li>
+                        <li>git helps you collaborate with others</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>A Note on Other Systems</h2>
+                    <p>There are no other systems.</p>
+                </section>
+                <section>
+                    <h2>The Basic Workflow</h2>
+                    <p>update, branch, commit, pull request, merge</p>
+                </section>
+                <section>
+                    <h2>First, some setup</h2>
+                    <p>Open a terminal if you don't have one already</p>
+                    <pre><code>cmd+space, type 'terminal'</code></pre>
+                    <p>Check that git is installed and set your user details:</p>
+                    <pre><code>wyatt@wyatt:~$ git --version
+git version 2.6.3
+wyatt@wyatt:~$ git config --global user.name "Wyatt Carss"
+wyatt@wyatt:~$ git config --global user.email "wyatt@freshbooks.com"</code></pre>
+                    <p><small>(if it isn't there, download and install it from <a href="https://git-scm.com">http://git-scm.com</a>)</small></p>
+                </section>
+                <section>
+                    <h2>A little more setup</h2>
+                    <pre><code>wyatt@wyatt:~$ git clone git@github.com:wcarss/git-basics.git
+Cloning into 'git-basics'...
+remote: Counting objects: 4, done.
+remote: Compressing objects: 100% (4/4), done.
+remote: Total 4 (delta 0), reused 0 (delta 0), pack-reused 0
+Receiving objects: 100% (4/4), done.
+Checking connectivity... done.
 
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+wyatt@wyatt:~$ cd git-basics
+wyatt@wyatt:~/git-basics$ </code></pre>
+                    <p>This makes a local copy of the files on your own machine.</p>
+                </section>
+                <section>
+                    <h2>Update</h2>
+                    <pre><code>wyatt@wyatt:~/git-basics$ git pull
+Already up-to-date.
+wyatt@wyatt:~/git-basics$ </code></pre>
+                    <p>We just got the code, so it's already up-to-date.</p>
+                </section>
+                <section>
+                    <h2>Brief pause: take a look around</h2>
+                    <p>These commands just show information. Try them out often.</p>
+                    <pre><code>git status  # current status of your repository
+git diff    # changes since you last saved
+git log     # history of all changes on your branch
+git show    # last change saved on your branch</code></pre>
+                    <p><small>(Tap 'q' to 'quit' if a command doesn't put you back at a prompt.)</small></p>
+                </section>
+                <section>
+                    <h2>Branching</h2>
+                    <p>First, what branch are you on?</p>
+                    <pre><code>wyatt@wyatt:~/git-basics$ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+nothing to commit, working directory clean
 
-		<!-- Code syntax highlighting -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+wyatt@wyatt:~/git-basics$ </code></pre>
+                    <p>What branches exist?</p>
+                    <pre><code>wyatt@wyatt:~/git-basics$ git branch
+* master
+wyatt@wyatt:~/git-basics$ </code></pre>
+                </section>
+                <section>
+                    <h2>Branching</h2>
+                    <p>Let's look at the history of this branch.</p>
+                    <pre><code>wyatt@wyatt:~/git-basics$ git log
+commit 9c3866d3fc22d335167a2cb37d08aebdadd3be5b
+Author: Wyatt Carss &lt;carss.w@gmail.com&gt;
+Date:   Mon Nov 9 00:00:28 2015 -0500
 
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
+Initial commit
 
-		<!--[if lt IE 9]>
-		<script src="lib/js/html5shiv.js"></script>
-		<![endif]-->
-	</head>
+wyatt@wyatt:~/git-basics$ </code></pre>
+                </section>
+                <section>
+                    <h2>Branching</h2>
+                    <p>How to make a new branch:</p>
+                    <pre><code>wyatt@wyatt:~/git-basics$ git branch wyatt-test
+Branch wyatt-test set up to track local branch master.
+wyatt@wyatt:~/git-basics$ git branch   # checking our work
+* master
+wyatt-test
+wyatt@wyatt:~/git-basics$</code></pre>
+                </section>
+                <section>
+                    <h2>Branching</h2>
+                    <p>Change branches with <em>checkout</em></p>
+                    <pre><code>wyatt@wyatt:~/code/play/git-basics$ git checkout wyatt-test
+Switched to branch 'wyatt-test'
+Your branch is up-to-date with 'master'.</code></pre>
+                    <p>Use your tools to look around<p>
+                    <pre><code>wyatt@wyatt:~/code/play/git-basics$ git status
+On branch wyatt-test
+Your branch is up-to-date with 'master'.
+nothing to commit, working directory clean
 
-	<body>
+wyatt@wyatt:~/code/play/git-basics$ git branch
+master
+* wyatt-test
+wyatt@wyatt:~/code/play/git-basics$</code></pre>
+                </section>
+                <section data-background="http://i.giphy.com/BoBOKNtlR8rTi.gif">
+                    <h2>BRANCHING: SUCCESS</h2>
+                </section>
+                <section>
+                    <h2>What all do we have left, again?</h2>
+                    <p>We're still going to...</p>
+                    <ul>
+                        <li>commit changes</li>
+                        <li>make a pull request</li>
+                        <li>merge our changes</li>
+                        <li>and update again at the end</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Committing</h2>
+                    <p>First we'll make a change, so we can commit it.</p>
+                    <pre><code>wyatt@wyatt:~/git-basics$ vim wyatt-file</code></pre>
+                    <p>Actually, <em>first</em>, we'll take a detour into using vim.</p>
+                </section>
+                <section>
+                    <h2>Crash Course in Vim</h2>
+                </section>
+                <section>
+                    <h2>oh god what's happening</h2>
+                    <p>Vim has two modes: command and edit.</p>
+                    <p>It starts in command mode.</p>
+                    <p>You can't type stuff normally in command mode.</p>
+                </section>
+                <section>
+                    <h2>Get to edit (aka insert) mode</h2>
+                    <p>You can type freely in edit mode.</p>
+                    <p>To get to edit mode, hit 'i'.</p>
+                    <p>You can't save or quit in edit mode.</p>
+                </section>
+                <section>
+                    <h2>Get to command mode</h2>
+                    <p>You can save and quit in command mode.</p>
+                    <p>Hitting &lt;Escape&gt; will get you back to command mode.</p>
+                </section>
+                <section>
+                    <h2>saving</h2>
+                    <p>type ':' to begin a command.</p>
+                    <p>type 'w' and then hit &lt;Enter&gt; to <em>write</em> (or save) the file.</p>
+                </section>
+                <section>
+                    <h2>quittng</h2>
+                    <p>type ':' to begin another command.</p>
+                    <p>type 'q' and then hit &lt;Enter&gt; to <em>quit</em> the editor.</p>
+                </section>
+                <section>
+                    <h2>deal with it</h2>
+                    <p>Q: Why did we just do this?</p>
+                    <p>A: git opens vim by default when we make a commit.</p>
+                    <p>Gotta learn sometime, and it isn't that bad.</p>
+                </section>
+                <section>
+                    <h2>Quick Summary</h2>
+                    <pre><code>edit mode     # write words here
+command mode  # write commands here
+i             # command mode -&gt; edit mode
+&lt;ESC&gt;         # edit mode -&gt; command mode
+:w            # (command only) saves the file
+:q            # (command only) quits the file</code></pre>
+                </section>
+                <section>
+                    <h2>Committing</h2>
+                    <p>Okay, back to it! This is gonna be a bit of a long ride.</p>
+                    <pre><code>wyatt@wyatt:~/git-basics$ vim wyatt-file
+wyatt@wyatt:~/git-basics$ git status
+On branch wyatt-test
+Your branch is up-to-date with 'master'.
+Untracked files:
+(use "git add &lt;file&gt;..." to include in what will be committed)
 
-		<div class="reveal">
+wyatt-file
 
-			<!-- Any section element inside of this container is displayed as a slide -->
-			<div class="slides">
-				<section>
-					<h1>Reveal.js</h1>
-					<h3>The HTML Presentation Framework</h3>
-					<p>
-						<small>Created by <a href="http://hakim.se">Hakim El Hattab</a> / <a href="http://twitter.com/hakimel">@hakimel</a></small>
-					</p>
-				</section>
+nothing added to commit but untracked files present (use "git add" to track)
 
-				<section>
-					<h2>Hello There</h2>
-					<p>
-						reveal.js enables you to create beautiful interactive slide decks using HTML. This presentation will show you examples of what it can do.
-					</p>
-				</section>
+wyatt@wyatt:~/git-basics$ git diff
+wyatt@wyatt:~/git-basics$ </code></pre>
+                </section>
+                <section>
+                    <h2>Committing</h2>
+                    <p>We have to add the file. In other words, we are <em>staging</em> it.</p>
+                    <pre><code>wyatt@wyatt:~/git-basics$ git add wyatt-file
+wyatt@wyatt:~/git-basics$ git status
+On branch wyatt-test
+Your branch is up-to-date with 'master'.
+Changes to be committed:
+(use "git reset HEAD &lt;file&gt;..." to unstage)
 
-				<!-- Example of nested vertical slides -->
-				<section>
-					<section>
-						<h2>Vertical Slides</h2>
-						<p>Slides can be nested inside of each other.</p>
-						<p>Use the <em>Space</em> key to navigate through all slides.</p>
-						<br>
-						<a href="#" class="navigate-down">
-							<img width="178" height="238" data-src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
-						</a>
-					</section>
-					<section>
-						<h2>Basement Level 1</h2>
-						<p>Nested slides are useful for adding additional detail underneath a high level horizontal slide.</p>
-					</section>
-					<section>
-						<h2>Basement Level 2</h2>
-						<p>That's it, time to go back up.</p>
-						<br>
-						<a href="#/2">
-							<img width="178" height="238" data-src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Up arrow" style="transform: rotate(180deg); -webkit-transform: rotate(180deg);">
-						</a>
-					</section>
-				</section>
+new file:   wyatt-file
 
-				<section>
-					<h2>Slides</h2>
-					<p>
-						Not a coder? Not a problem. There's a fully-featured visual editor for authoring these, try it out at <a href="http://slides.com" target="_blank">http://slides.com</a>.
-					</p>
-				</section>
+wyatt@wyatt:~/git-basics$ </code></pre>
+                </section>
+                <section>
+                    <h2>Committing</h2>
+                    <p>Let's edit a second file and then look around.</p>
+                    <pre><code>wyatt@wyatt:~/git-basics$ vim wyatt-file2
+wyatt@wyatt:~/git-basics$ git diff          # known but not staged
+wyatt@wyatt:~/git-basics$ git diff --staged # known and staged
+diff --git a/wyatt-file b/wyatt-file
+new file mode 100644
+index 0000000..7da2541
+--- /dev/null
++++ b/wyatt-file
+@@ -0,0 +1 @@
++blah blah wyatt-file
 
-				<section>
-					<h2>Point of View</h2>
-					<p>
-						Press <strong>ESC</strong> to enter the slide overview.
-					</p>
-					<p>
-						Hold down alt and click on any element to zoom in on it using <a href="http://lab.hakim.se/zoom-js">zoom.js</a>. Alt + click anywhere to zoom back out.
-					</p>
-				</section>
+wyatt@wyatt:~/git-basics$</code></pre>
+                </section>
+                <section>
+                    <h2>Committing</h2>
+                    <p>See what that looks like in status, then add the second file:</p>
+                    <pre><code>wyatt@wyatt:~/git-basics$ git status
+On branch wyatt-test
+Your branch is up-to-date with 'master'.
+Changes to be committed:
+(use "git reset HEAD &lt;file&gt;..." to unstage)
 
-				<section>
-					<h2>Touch Optimized</h2>
-					<p>
-						Presentations look great on touch devices, like mobile phones and tablets. Simply swipe through your slides.
-					</p>
-				</section>
+new file:   wyatt-file
 
-				<section data-markdown>
-					<script type="text/template">
-						## Markdown support
+Untracked files:
+(use "git add &lt;file&gt;..." to include in what will be committed)
 
-						Write content using inline or external Markdown.
-						Instructions and more info available in the [readme](https://github.com/hakimel/reveal.js#markdown).
+wyatt-file2
 
-						```
-						<section data-markdown>
-						  ## Markdown support
+wyatt@wyatt:~/git-basics$ git add wyatt-file2</code></pre>
+                </section>
+                <section>
+                    <h2>Committing</h2>
+                    <p>diff of both staged files:</p>
+                    <pre><code>wyatt@wyatt:~/git-basics$ git diff --staged
+diff --git a/wyatt-file b/wyatt-file
+new file mode 100644
+index 0000000..7da2541
+--- /dev/null
++++ b/wyatt-file
+@@ -0,0 +1 @@
++blah blah wyatt-file
+diff --git a/wyatt-file2 b/wyatt-file2
+new file mode 100644
+index 0000000..d61d71c
+--- /dev/null
++++ b/wyatt-file2
+@@ -0,0 +1 @@
++wahoo wyatt-file2
+wyatt@wyatt:~/git-basics$ </code></pre>
+                </section>
+                <section>
+                    <h2>Committing</h2>
+                    <p>status of both staged files</p>
+                    <pre><code>wyatt@wyatt:~/git-basics$ git status
+On branch wyatt-test
+Your branch is up-to-date with 'master'.
+Changes to be committed:
+(use "git reset HEAD &lt;file&gt;..." to unstage)
 
-						  Write content using inline or external Markdown.
-						  Instructions and more info available in the [readme](https://github.com/hakimel/reveal.js#markdown).
-						</section>
-						```
-					</script>
-				</section>
+new file:   wyatt-file
+new file:   wyatt-file2
 
-				<section>
-					<section id="fragments">
-						<h2>Fragments</h2>
-						<p>Hit the next arrow...</p>
-						<p class="fragment">... to step through ...</p>
-						<p><span class="fragment">... a</span> <span class="fragment">fragmented</span> <span class="fragment">slide.</span></p>
+wyatt@wyatt:~/git-basics$ </code></pre>
+                </section>
+                <section>
+                    <h2>Committing</h2>
+                    <p>Finally, we're actually committing this!</p>
+                    <pre><code>wyatt@wyatt:~/git-basics$ git commit</code></pre>
+                    <p><small>(this will open up vim)</small></p>
+                </section>
+                <section>
+                    <h2>Committing</h2>
+                    <section>
+                        <p>Write a commit message here:</p>
+                        <pre><code>Add brilliant new files.
 
-						<aside class="notes">
-							This slide has fragments which are also stepped through in the notes window.
-						</aside>
-					</section>
-					<section>
-						<h2>Fragment Styles</h2>
-						<p>There's different types of fragments, like:</p>
-						<p class="fragment grow">grow</p>
-						<p class="fragment shrink">shrink</p>
-						<p class="fragment fade-out">fade-out</p>
-						<p class="fragment current-visible">current-visible</p>
-						<p class="fragment highlight-red">highlight-red</p>
-						<p class="fragment highlight-blue">highlight-blue</p>
-					</section>
-				</section>
+These files are so brilliant, they just had to be added.
 
-				<section id="transitions">
-					<h2>Transition Styles</h2>
-					<p>
-						You can select from different transitions, like: <br>
-						<a href="?transition=none#/transitions">None</a> -
-						<a href="?transition=fade#/transitions">Fade</a> -
-						<a href="?transition=slide#/transitions">Slide</a> -
-						<a href="?transition=convex#/transitions">Convex</a> -
-						<a href="?transition=concave#/transitions">Concave</a> -
-						<a href="?transition=zoom#/transitions">Zoom</a>
-					</p>
-				</section>
+See WYATT-1.
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch wyatt-test
+# Your branch is up-to-date with 'master'.
+#
+# Changes to be committed:
+#       new file:   wyatt-file
+#       new file:   wyatt-file2
+#</code></pre>
+                        <p><small>(none of the # lines are saved -- they're just info!)</small></p>
+                    </section>
+                    <section>
+                        <p>Remember your vim commands:</p>
+                        <pre><code>edit mode     # write words here
+command mode  # write commands here
+i             # command mode -&gt; edit mode
+&lt;ESC&gt;         # edit mode -&gt; command mode
+:w            # (command only) saves the file
+:q            # (command only) quits the file</code></pre>
+                    </section>
+                </section>
+                <section>
+                    <h2>Committing</h2>
+                    <p>Finally, we've actually committed this!</p>
+                    <pre><code>wyatt@wyatt:~/git-basics$ git commit
+[wyatt-test de81836] Add brilliant new files.
+2 files changed, 2 insertions(+)
+create mode 100644 wyatt-file
+create mode 100644 wyatt-file2
 
-				<section id="themes">
-					<h2>Themes</h2>
-					<p>
-						reveal.js comes with a few themes built in: <br>
-						<!-- Hacks to swap themes after the page has loaded. Not flexible and only intended for the reveal.js demo deck. -->
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/black.css'); return false;">Black (default)</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/white.css'); return false;">White</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/league.css'); return false;">League</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/sky.css'); return false;">Sky</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/beige.css'); return false;">Beige</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/simple.css'); return false;">Simple</a> <br>
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/serif.css'); return false;">Serif</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/blood.css'); return false;">Blood</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/night.css'); return false;">Night</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/moon.css'); return false;">Moon</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/solarized.css'); return false;">Solarized</a>
-					</p>
-				</section>
+wyatt@wyatt:~/git-basics$ </code></pre>
+                        <p><small>(cooooooooooooool)</small></p>
+                </section>
+                <section>
+                    <h2>Committing</h2>
+                    <p>Look around in a post-commit world.</p>
+                    <pre><code>wyatt@wyatt:~/git-basics$ git diff           # still nothing
+wyatt@wyatt:~/git-basics$ git diff --staged  # nothing here now
+wyatt@wyatt:~/git-basics$ git status
+On branch wyatt-test
+Your branch is ahead of 'master' by 1 commit.
+(use "git push" to publish your local commits)
+nothing to commit, working directory clean
 
-				<section>
-					<section data-background="#dddddd">
-						<h2>Slide Backgrounds</h2>
-						<p>
-							Set <code>data-background="#dddddd"</code> on a slide to change the background color. All CSS color formats are supported.
-						</p>
-						<a href="#" class="navigate-down">
-							<img width="178" height="238" data-src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
-						</a>
-					</section>
-					<section data-background="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png">
-						<h2>Image Backgrounds</h2>
-						<pre><code class="hljs">&lt;section data-background="image.png"&gt;</code></pre>
-					</section>
-					<section data-background="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png" data-background-repeat="repeat" data-background-size="100px">
-						<h2>Tiled Backgrounds</h2>
-						<pre><code class="hljs" style="word-wrap: break-word;">&lt;section data-background="image.png" data-background-repeat="repeat" data-background-size="100px"&gt;</code></pre>
-					</section>
-					<section data-background-video="https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.mp4,https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.webm" data-background-color="#000000">
-						<div style="background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px;">
-							<h2>Video Backgrounds</h2>
-							<pre><code class="hljs" style="word-wrap: break-word;">&lt;section data-background-video="video.mp4,video.webm"&gt;</code></pre>
-						</div>
-					</section>
-					<section data-background="http://i.giphy.com/90F8aUepslB84.gif">
-						<h2>... and GIFs!</h2>
-					</section>
-				</section>
+wyatt@wyatt:~/git-basics$ </code></pre>
+                </section>
+                <section>
+                    <h2>Committing</h2>
+                    <p>Check out the log:</p>
+                    <pre><code>wyatt@wyatt:~/git-basics$ git log
+commit de81836ee5a4812e8d0f0a896b43450a9afdf24e
+Author: Wyatt Carss &lt;wyatt@freshbooks.com&gt;
+Date:   Mon Nov 9 03:08:10 2015 -0500
 
-				<section data-transition="slide" data-background="#4d7e65" data-background-transition="zoom">
-					<h2>Background Transitions</h2>
-					<p>
-						Different background transitions are available via the backgroundTransition option. This one's called "zoom".
-					</p>
-					<pre><code class="hljs">Reveal.configure({ backgroundTransition: 'zoom' })</code></pre>
-				</section>
+Add brilliant new files.
 
-				<section data-transition="slide" data-background="#b5533c" data-background-transition="zoom">
-					<h2>Background Transitions</h2>
-					<p>
-						You can override background transitions per-slide.
-					</p>
-					<pre><code class="hljs" style="word-wrap: break-word;">&lt;section data-background-transition="zoom"&gt;</code></pre>
-				</section>
+These files are so brilliant, they just had to be added.
 
-				<section>
-					<h2>Pretty Code</h2>
-					<pre><code class="hljs" data-trim contenteditable>
-function linkify( selector ) {
-  if( supports3DTransforms ) {
+See WYATT-1.
 
-    var nodes = document.querySelectorAll( selector );
+commit 9c3866d3fc22d335167a2cb37d08aebdadd3be5b
+Author: Wyatt Carss &lt;carss.w@gmail.com&gt;
+Date:   Mon Nov 9 00:00:28 2015 -0500
 
-    for( var i = 0, len = nodes.length; i &lt; len; i++ ) {
-      var node = nodes[i];
+Initial commit
 
-      if( !node.className ) {
-        node.className += ' roll';
-      }
-    }
-  }
-}
-					</code></pre>
-					<p>Code syntax highlighting courtesy of <a href="http://softwaremaniacs.org/soft/highlight/en/description/">highlight.js</a>.</p>
-				</section>
+wyatt@wyatt:~/git-basics$ </code></pre>
+                </section>
+                <section data-background="http://i.giphy.com/iAqGEBqBXQEF2.gif">
+                    <h2>COMMITTING: ACCOMPLISHED</h2>
+                </section>
+                <section>
+                    <h2>Phew... What all is left?</h2>
+                    <ul>
+                        <li>Making a pull request</li>
+                        <li>Merging the pull request</li>
+                        <li>Updating your master branch</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Making a Pull Request</h2>
+                    <p>Let's jump in here by looking at the remote repositories:</p>
+                    <pre><code>wyatt@wyatt:~/git-basics$ git remote -v
+origin  git@github.com:wcarss/git-basics.git (fetch)
+origin  git@github.com:wcarss/git-basics.git (push)
 
-				<section>
-					<h2>Marvelous List</h2>
-					<ul>
-						<li>No order here</li>
-						<li>Or here</li>
-						<li>Or here</li>
-						<li>Or here</li>
-					</ul>
-				</section>
+wyatt@wyatt:~/git-basics$ </code></pre>
+                    <p><small>(origin is the default name we give to the server)</small></p>
+                </section>
+                <section>
+                    <h2>Making a Pull Request</h2>
+                    <p>We're going to push our branch to the remote server.</p>
+                    <pre><code>wyatt@wyatt:~/git-basics$ git push origin wyatt-test
+Counting objects: 4, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (4/4), 443 bytes | 0 bytes/s, done.
+Total 4 (delta 0), reused 0 (delta 0)
+To git@github.com:wcarss/git-basics.git
+* [new branch]      wyatt-test -&gt; wyatt-test
 
-				<section>
-					<h2>Fantastic Ordered List</h2>
-					<ol>
-						<li>One is smaller than...</li>
-						<li>Two is smaller than...</li>
-						<li>Three!</li>
-					</ol>
-				</section>
+wyatt@wyatt:~/git-basics$ </code></pre>
+                    <p><small>(with anti-climactic ease)</small></p>
+                </section>
+                <section>
+                    <h2>Making a Pull Request</h2>
+                    <p>Let's go look at the internet for this section.</p>
+                    <p>please go to <a href="https://github.com/wcarss/git-basics">https://github.com/wcarss/git-basics</a>.</p>
+                </section>
+                <section data-background="">
+                    <h2>PULL REQUEST AND MERGING: VICTORY</h2>
+                </section>
+                <section>
+                    <h2>Updating</h2>
+                    <p>Okay, let's update!</p>
+                    <pre><code>wyatt@wyatt:~/git-basics$ git pull
+From .
+* branch            master     -&gt; FETCH_HEAD
+Already up-to-date.
+wyatt@wyatt:~/git-basics$</code></pre>
+                    <p><small>wat .. how can we be up to date?</small></p>
+                </section>
+                <section>
+                    <h2>Updating</h2>
+                    <p>We've got to go back to our master branch, and update that.</p>
+                    <pre><code>wyatt@wyatt:~/git-basics$ git checkout master
+Switched to branch 'master'
+Your branch is up-to-date with 'origin/master'.
+wyatt@wyatt:~/git-basics$ </code></pre>
+                    <p><small>hm, okay, but</small></p>
+                </section>
+                <section>
+                    <h2>Updating</h2>
+                    <p>We have to ask the remote server for updates!</p>
+<pre><code>wyatt@wyatt:~/git-basics$ git fetch
+remote: Counting objects: 1, done.
+remote: Total 1 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (1/1), done.
+From github.com:wcarss/git-basics
+9c3866d..586c1df  master     -&gt; origin/master
 
-				<section>
-					<h2>Tabular Tables</h2>
-					<table>
-						<thead>
-							<tr>
-								<th>Item</th>
-								<th>Value</th>
-								<th>Quantity</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>Apples</td>
-								<td>$1</td>
-								<td>7</td>
-							</tr>
-							<tr>
-								<td>Lemonade</td>
-								<td>$2</td>
-								<td>18</td>
-							</tr>
-							<tr>
-								<td>Bread</td>
-								<td>$3</td>
-								<td>2</td>
-							</tr>
-						</tbody>
-					</table>
-				</section>
+wyatt@wyatt:~/git-basics$ git status
+On branch master
+Your branch is behind 'origin/master' by 2 commits, and can be fast-forwarded.
+(use "git pull" to update your local branch)
+nothing to commit, working directory clean
 
-				<section>
-					<h2>Clever Quotes</h2>
-					<p>
-						These guys come in two forms, inline: <q cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
-						&ldquo;The nice thing about standards is that there are so many to choose from&rdquo;</q> and block:
-					</p>
-					<blockquote cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
-						&ldquo;For years there has been a theory that millions of monkeys typing at random on millions of typewriters would
-						reproduce the entire works of Shakespeare. The Internet has proven this theory to be untrue.&rdquo;
-					</blockquote>
-				</section>
+wyatt@wyatt:~/git-basics$ </code></pre>
+                    <p><small>what a world.</small></p>
+                </section>
+                <section>
+                    <h2>Updating</h2>
+                    <p>Let's git pull.</p>
+                    <pre><code>wyatt@wyatt:~/git-basics$ git pull
+Updating 9c3866d..586c1df
+Fast-forward
+wyatt-file  | 1 +
+wyatt-file2 | 1 +
+2 files changed, 2 insertions(+)
+create mode 100644 wyatt-file
+create mode 100644 wyatt-file2
 
-				<section>
-					<h2>Intergalactic Interconnections</h2>
-					<p>
-						You can link between slides internally,
-						<a href="#/2/3">like this</a>.
-					</p>
-				</section>
+wyatt@wyatt:~/git-basics$ </code></pre>
+                </section>
+                <section>
+                    <h2>And now....</h2>
+                    <p>We're done.</p>
+                </section>
+                <section data-background="">
+                    <h2>YAAAAAAAAAY</h2>
+                </section>
+                <section>
+                    <h2>Questions?</h2>
+                </section>
+                <section>
+                    <h2>Thanks everyone!</h2>
+                    <p>go with git, and never be alone</p>
+                </section>
+                <section data-background="troupjoke.png">
+                    <h2>obligatory</h2>
+            </div>
+        </div>
 
-				<section>
-					<h2>Speaker View</h2>
-					<p>There's a <a href="https://github.com/hakimel/reveal.js#speaker-notes">speaker view</a>. It includes a timer, preview of the upcoming slide as well as your speaker notes.</p>
-					<p>Press the <em>S</em> key to try it out.</p>
-
-					<aside class="notes">
-						Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you open the speaker notes window (hit 's' on your keyboard).
-					</aside>
-				</section>
-
-				<section>
-					<h2>Export to PDF</h2>
-					<p>Presentations can be <a href="https://github.com/hakimel/reveal.js#pdf-export">exported to PDF</a>, here's an example:</p>
-					<iframe src="https://www.slideshare.net/slideshow/embed_code/42840540" width="445" height="355" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:3px solid #666; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
-				</section>
-
-				<section>
-					<h2>Global State</h2>
-					<p>
-						Set <code>data-state="something"</code> on a slide and <code>"something"</code>
-						will be added as a class to the document element when the slide is open. This lets you
-						apply broader style changes, like switching the page background.
-					</p>
-				</section>
-
-				<section data-state="customevent">
-					<h2>State Events</h2>
-					<p>
-						Additionally custom events can be triggered on a per slide basis by binding to the <code>data-state</code> name.
-					</p>
-					<pre><code class="javascript" data-trim contenteditable style="font-size: 18px;">
-Reveal.addEventListener( 'customevent', function() {
-	console.log( '"customevent" has fired' );
-} );
-					</code></pre>
-				</section>
-
-				<section>
-					<h2>Take a Moment</h2>
-					<p>
-						Press B or . on your keyboard to pause the presentation. This is helpful when you're on stage and want to take distracting slides off the screen.
-					</p>
-				</section>
-
-				<section>
-					<h2>Much more</h2>
-					<ul>
-						<li>Right-to-left support</li>
-						<li><a href="https://github.com/hakimel/reveal.js#api">Extensive JavaScript API</a></li>
-						<li><a href="https://github.com/hakimel/reveal.js#auto-sliding">Auto-progression</a></li>
-						<li><a href="https://github.com/hakimel/reveal.js#parallax-background">Parallax backgrounds</a></li>
-						<li><a href="https://github.com/hakimel/reveal.js#keyboard-bindings">Custom keyboard bindings</a></li>
-					</ul>
-				</section>
-
-				<section style="text-align: left;">
-					<h1>THE END</h1>
-					<p>
-						- <a href="http://slides.com">Try the online editor</a> <br>
-						- <a href="https://github.com/hakimel/reveal.js">Source code &amp; documentation</a>
-					</p>
-				</section>
-
-			</div>
-
-		</div>
-
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.js"></script>
-
-		<script>
-
-			// Full list of configuration options available at:
-			// https://github.com/hakimel/reveal.js#configuration
-			Reveal.initialize({
-				controls: true,
-				progress: true,
-				history: true,
-				center: true,
-
-				transition: 'slide', // none/fade/slide/convex/concave/zoom
-
-				// Optional reveal.js plugins
-				dependencies: [
-					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-					{ src: 'plugin/zoom-js/zoom.js', async: true },
-					{ src: 'plugin/notes/notes.js', async: true }
-				]
-			});
-
-		</script>
-
-	</body>
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.js"></script>
+        <script>
+            // Full list of configuration options available at:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+                transition: 'slide', // none/fade/slide/convex/concave/zoom
+                // Optional reveal.js plugins
+                dependencies: [
+                    {
+                        src: 'lib/js/classList.js',
+                        condition: function() {
+                            return !document.body.classList;
+                        }
+                    }, {
+                        src: 'plugin/markdown/marked.js',
+                        condition: function() {
+                            return !!document.querySelector( '[data-markdown]' );
+                        }
+                    }, {
+                        src: 'plugin/markdown/markdown.js',
+                        condition: function() {
+                            return !!document.querySelector( '[data-markdown]' );
+                        }
+                    }, {
+                        src: 'plugin/highlight/highlight.js',
+                        async: true,
+                        callback: function() {
+                            hljs.initHighlightingOnLoad();
+                        }
+                    }, {
+                        src: 'plugin/zoom-js/zoom.js',
+                        async: true
+                    }, {
+                        src: 'plugin/notes/notes.js',
+                        async: true
+                    }
+                ]
+            });
+        </script>
+    </body>
 </html>
